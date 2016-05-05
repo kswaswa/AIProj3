@@ -1,0 +1,103 @@
+\documentclass[a4paper, 11pt]{article}
+\usepackage{comment} % enables the use of multi-line comments (\ifx \fi) 
+\usepackage{lipsum} %This package just generates Lorem Ipsum filler text. 
+\usepackage{fullpage} % changes the margin
+
+\begin{document}
+%Header-Make sure you update this information!!!!
+\noindent
+\large\textbf{Project Report} \hfill \textbf{Katie Swanson} \\
+\normalsize CMSC 471 \hfill Teammates: Katie Dillon, Sasha \\
+Prof. Max \hfill (worked next to them, got some l\
+ines of code from them) \\
+ \hfill Due Date: 05/04/16
+
+\section*{Project 3}
+For project 3 we had to write our own program to use image and feature recognition to classify images we pass to the progrm.
+
+\section*{Investigation/Research}
+In class, we learned about featurization and image classification. We also learned about training a machine learning program by using a training set, a testing set, and a validation set. I first knew that I would be using that general approach, but I did not know what libraries or code to use, or even how to start off. I asked my two friends, Katie and Sasha, to work on the project in the same room as me. Being a mac user, and them two being linux users, they got way ahead of me because I had a lot of problems installing the programs initially. But, we researched ways to approach this problem, and cv2 sounded like a good library to read in files etc. and sklearn sounded like a good library to help with the machine learning and predictions. Eventually, I did a lot of work myself, although I will admit I did get some help from Katie in the end.
+
+\section*{Approach}
+I used cv2 to help me read in the files in for loops for each of the five folders for each of the types of drawings. I then added the label to the label list and used the python imaging library (Pillow) to read in the image as RBG values. I then flattened this 2d array into one value by adding them all up. Then, I appended this value to the descriptors list. At the end, we have one huge descriptor and one huge label list, both of them matching so if you indexed [i] you would get the matching label of i in the descriptor list. After this, I used sklearn to create a model and to pass in my model, descriptors, and labels in order to train my set and print out my accuracy. sklearn does a lot of the work for me, which is a good thing since the ML part of this project is extremely complex. After that, I pickled my program using cv2. I then ran my pickled program, and when you enter a jpeg image in that saved instance of my trained set, it prints out what it thinks the image is classified under.
+
+\section*{Accuracy}
+My accuracy should currently be at 91 percent.
+
+\section*{Bugs}
+Katies-MacBook-Pro:AIProject3 katie pip2.7 show scikit-learn
+---
+Metadata-Version: 2.0
+Name: scikit-learn
+Version: 0.17.1
+Summary: A set of python modules for machine learning and data mining
+Home-page: http://scikit-learn.org
+Author: Andreas Mueller
+Author-email: amueller@ais.uni-bonn.de
+Installer: pip
+License: new BSD
+Location: /usr/local/lib/python2.7/site-packages
+Requires: 
+Classifiers:
+  Intended Audience :: Science/Research
+  Intended Audience :: Developers
+  License :: OSI Approved
+  Programming Language :: C
+  Programming Language :: Python
+  Topic :: Software Development
+  Topic :: Scientific/Engineering
+  Operating System :: Microsoft :: Windows
+  Operating System :: POSIX
+  Operating System :: Unix
+  Operating System :: MacOS
+  Programming Language :: Python :: 2
+  Programming Language :: Python :: 2.6
+  Programming Language :: Python :: 2.7
+  Programming Language :: Python :: 3
+  Programming Language :: Python :: 3.3
+  Programming Language :: Python :: 3.4
+
+/usr/local/lib/python2.7/site-packages/sklearn/cross_validation.py:516: Warning: The least populated class in y has only 1 members, which is too few. The minimum number of labels for any class cannot be less than n_folds=5.
+  (min_labels, self.n_folds)), Warning)
+/usr/local/lib/python2.7/site-packages/sklearn/utils/validation.py:386: DeprecationWarning: Passing 1d arrays as data is deprecated in 0.17 and willraise ValueError in 0.19. Reshape your data either using X.reshape(-1, 1) if your data has a single feature or X.reshape(1, -1) if it contains a single sample.
+  DeprecationWarning)
+Traceback (most recent call last):
+  File ``proj3.py'', line 127, in <module>
+    main()
+  File ``proj3.py'', line 123, in main
+    printScore(labels, descriptors)
+  File ``proj3.py'', line 86, in printScore
+    y=labels, cv=5, scoring='f1_weighted') 
+  File ``/usr/local/lib/python2.7/site-packages/sklearn/cross_validation.py'', line 1433, in cross_val_score
+    for train, test in cv)
+  File ``/usr/local/lib/python2.7/site-packages/sklearn/externals/joblib/parallel.py'', line 800, in __call__
+    while self.dispatch_one_batch(iterator):
+  File ``/usr/local/lib/python2.7/site-packages/sklearn/externals/joblib/parallel.py'', line 658, in dispatch_one_batch
+    self._dispatch(tasks)
+  File ``/usr/local/lib/python2.7/site-packages/sklearn/externals/joblib/parallel.py'', line 566, in _dispatch
+    job = ImmediateComputeBatch(batch)
+  File ``/usr/local/lib/python2.7/site-packages/sklearn/externals/joblib/parallel.py'', line 180, in __init__
+    self.results = batch()
+  File ``/usr/local/lib/python2.7/site-packages/sklearn/externals/joblib/parallel.py'', line 72, in __call__
+    return [func(*args, **kwargs) for func, args, kwargs in self.items]
+  File ``/usr/local/lib/python2.7/site-packages/sklearn/cross_validation.py'', line 1531, in _fit_and_score
+    estimator.fit(X_train, y_train, **fit_params)
+  File ``/usr/local/lib/python2.7/site-packages/sklearn/svm/base.py'', line 150, in fit
+    X = check_array(X, accept_sparse='csr', dtype=np.float64, order='C')
+  File ``/usr/local/lib/python2.7/site-packages/sklearn/utils/validation.py'', line 415, in check_array
+    context))
+ValueError: Found array with 0 feature(s) (shape=(1, 0)) while a minimum of 1 is required.
+
+There is currently a bug in version 0.16.x, but as you can see I have version 0.17.x and it still contains this bug. I am not sure how to fix it but I am currently working on it. This is my only issue, and this is why it is not running. If you have any comments or suggestions for how I can improve my project for a second submission before May 10, I would greatly appreciate it.
+
+\section*{Final Words}
+I did work with two other people, so if our code is similar, we did not copy off of each other. We worked in the same room and happened to choose the same technologies since we wanted to help each other on the project.
+
+\section*{Final Evaluation}
+Overall, I learned so much more about ML and AI by applying the concepts we learned in class to programming an actual project. It got me excited to try out becoming an AI software engineer in the future.
+
+\begin{thebibliography}{9}
+\bibitem{Layout}https://www.overleaf.com/5108576cvqjbp#/15899417/
+\end{thebibliography}
+
+\end{document}
